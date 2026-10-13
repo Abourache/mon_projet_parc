@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Reports</h1>
+        
+        <h2>⚠️ Devices Eligible for Replacement (5 years)</h2>
+        
+        {% if a_remplacer %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Inventory Number</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Service Date</th>
+                        <th>Number of Years</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ordi in a_remplacer %}
+                        <tr>
+                            <td>{{ ordi.Num_Inventaire }}</td>
+                            <td>{{ ordi.Marque }}</td>
+                            <td>{{ ordi.Modele }}</td>
+                            <td>{{ ordi.Date_Mise_Service }}</td>
+                            <td>{{ ordi.annees_ecoulees }} years</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>✅ No devices eligible for replacement currently</p>
+        {% endif %}
+        
+        <br>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">🔙 Back</a>
+    </div>
+</body>
+</html>

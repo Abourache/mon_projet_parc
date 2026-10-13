@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Computer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Assign Computer to Employee</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label>Computer *</label>
+                <select name="ordinateur_id" required>
+                    <option value="">Choose a Computer</option>
+                    {% for ordi in ordinateurs %}
+                        <option value="{{ ordi.Id_Ordinateur }}">
+                            {{ ordi.Num_Inventaire }} - {{ ordi.Marque }} {{ ordi.Modele }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Employee *</label>
+                <select name="matricule" required>
+                    <option value="">Choose an Employee</option>
+                    {% for emp in employes %}
+                        <option value="{{ emp.Matricule }}">
+                            {{ emp.Prenom }} {{ emp.Nom }} ({{ emp.Poste }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Handover Date *</label>
+                <input type="date" name="date_affectation" required>
+            </div>
+            
+            <button type="submit" class="btn btn-success">📤 Assign</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">🔙 Back</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Computer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>➡️ Add New Computer</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label>Inventory Number *</label>
+                <input type="text" name="num_inventaire" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Serial Number *</label>
+                <input type="text" name="num_serie" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Brand</label>
+                <input type="text" name="marque">
+            </div>
+            
+            <div class="form-group">
+                <label>Model</label>
+                <input type="text" name="modele">
+            </div>
+            
+            <div class="form-group">
+                <label>Purchase Date</label>
+                <input type="date" name="date_achat">
+            </div>
+            
+            <div class="form-group">
+                <label>Service Startup Date *</label>
+                <input type="date" name="date_mise_service" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Status</label>
+                <select name="etat">
+                    <option value="Neuf">New</option>
+                    <option value="En service">In Service</option>
+                    <option value="En reparation">Under Maintenance</option>
+                    <option value="Hors service">Out of Service</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">💾 Add</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">🔙 Back</a>
+        </form>
+    </div>
+</body>
+</html>

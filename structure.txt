@@ -1,0 +1,18 @@
+mon_projet_parc/
+│
+├── app.py                 # الملف الرئيسي لتشغيل Flask
+├── db_config.py           # إعدادات الاتصال بقاعدة البيانات
+├── db_utils.py            # دوال التعامل مع البيانات
+│
+├── templates/             # مجلد ملفات HTML
+│   ├── index.html         # عرض جميع الحواسيب
+│   ├── ajouter_ordinateur.html   # نموذج إضافة حاسوب
+│   ├── ajouter_employe.html      # نموذج إضافة موظف
+│   ├── affecter.html      # نموذج تسليم حاسوب
+│   ├── restituer.html     # نموذج استرجاع حاسوب
+│   └── rapports.html      # صفحة التقارير
+│
+├── static/                # مجلد الملفات الثابتة
+│   └── style.css          # تنسيقات CSS
+│
+└── requirements.txt       # قائمة المكتبات المطلوبة

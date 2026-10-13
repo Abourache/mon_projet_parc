@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🖥️ IT Management System</h1>
+        
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Action Buttons -->
+        <div class="actions">
+            <a href="{{ url_for('ajouter_ordinateur_route') }}" class="btn btn-primary">➡️ Add Computer</a>
+            <a href="{{ url_for('affecter') }}" class="btn btn-success">📄 Assign Computer</a>
+            <a href="{{ url_for('restituer') }}" class="btn btn-warning">🚮 Return Computer</a>
+            <a href="{{ url_for('rapports') }}" class="btn btn-danger">📈 Reports</a>
+        </div>
+
+        <!-- Search Form -->
+        <form method="get" action="{{ url_for('index') }}" class="search-form">
+            <input type="text" name="q" value="{{ search or '' }}" placeholder="Search by employee ID/name or computer ID/name">
+            <button type="submit" class="btn btn-primary">🔎 Search</button>
+            {% if search %}
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Clear</a>
+            {% endif %}
+        </form>
+        
+        <!-- Computers Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Inventory Number</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Service Date</th>
+                    <th>Status</th>
+                    <th>Current Employee</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ordi in ordinateurs %}
+                <tr>
+                    <td>{{ ordi.Num_Inventaire }}</td>
+                    <td>{{ ordi.Marque }}</td>
+                    <td>{{ ordi.Modele }}</td>
+                    <td>{{ ordi.Date_Mise_Service }}</td>
+                    <td>
+                        <span class="etat etat-{{ ordi.Etat | replace(' ', '-') }}">
+                            {{ ordi.Etat }}
+                        </span>
+                    </td>
+                    <td>{{ ordi.employe_actuel or 'Not Assigned' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
